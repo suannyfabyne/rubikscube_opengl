@@ -5,6 +5,9 @@
 
 
 GLfloat angle, fAspect;
+GLuint Buttons[3] = {0,0,0};
+GLint LastX = 0;
+GLint LastY = 0;
 
 int C[6][10];
 int xro[28], yro[28], zro[28];
@@ -32,6 +35,8 @@ void wholr(int, int);
 
 void mouse_click(int, int, int, int);
 void mouse_move(int, int);
+void motion(int, int);
+
 
 int mpx, mpy, mpz;
 
@@ -773,6 +778,7 @@ int main(int argc, char** argv)
 	//glutKeyboardFunc(keyb);
 	//glutMotionFunc(mouse_move);
 	glutMouseFunc(mouse_click);
+	glutMotionFunc(motion);
 	glutTimerFunc(100, anim, 1);
 	glutSpecialFunc(specialKeys);
 	glutReshapeFunc(ChangeSize);
@@ -780,6 +786,20 @@ int main(int argc, char** argv)
 
 	glutMainLoop();
 	return 0;
+}
+void motion(int x, int y)
+{
+	int diffx = x - LastX;
+	int diffy = y - LastY;
+
+	LastX = x;
+	LastY = y;
+
+	if (Buttons[0]==1)
+	{
+		rotate_y += (float) 0.5f * diffx;
+		rotate_x += (float) 0.5f * diffy;
+	}				
 }
 
 //_________________________________________________________MOUSE
@@ -959,6 +979,24 @@ void mouse_click(int button, int state, int x, int y)
 		}
 		else
 			dragging = 0;
+	}
+
+	switch (button)
+	{
+	case GLUT_LEFT_BUTTON:
+		Buttons[0] = ((GLUT_DOWN == state) ? 1 : 0);
+		break;
+
+	case GLUT_MIDDLE_BUTTON:
+		Buttons[1] = ((GLUT_DOWN == state) ? 1 : 0);
+		break;
+
+	case GLUT_RIGHT_BUTTON:
+		Buttons[2] = ((GLUT_DOWN == state) ? 1 : 0);
+		break;
+
+	default:
+		break;
 	}
 }
 
