@@ -1,10 +1,23 @@
 // #include<windows.h>
 #include <GL/glut.h>
-#include<stdio.h>
+#include <iostream>
 #include<stdlib.h>
-
+#include "SOIL.h"
 
 GLfloat angle, fAspect;
+
+
+unsigned char* img;
+int img_width; 
+int img_height;
+int img_channels;
+
+GLuint texture_id;
+
+GLfloat aspect = 1.0f;
+GLfloat tex_ss = 1.0f;
+GLfloat tex_st = 1.0f;
+GLuint render_object = 0;
 
 int C[6][10];
 int xro[28], yro[28], zro[28];
@@ -391,6 +404,9 @@ void draw()
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glDisable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
+
 	glRotatef(rotate_x, 1.0, 0.0, 0.0);
 	glRotatef(rotate_y, 0.0, 1.0, 0.0);
 	if (rot)
@@ -536,29 +552,65 @@ void draw()
 	glEnd();  // End of drawing color-
 
 
+	//glColor3f(1.0, 1.0, 1.0); // Green (text color)
+
+	//glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(90.0f, aspect, 0.01f, 10.0f);
+	glMatrixMode(GL_TEXTURE);
+	glLoadIdentity();	
+	glScalef(tex_ss, tex_st, 1);
+
+	glMatrixMode(GL_MODELVIEW);
+
+
 	// // RETANGULOS
-	// glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	// glTranslatef(-0.85f, -0.75f, 0.0f);
-	// glScalef(0.1f, 0.1f, 0.1);
-	// glRotatef(50.0f, 50.0f, 0.0f, 0.0f);
-	// glBegin(GL_QUAD_STRIP);
-	// glColor3f(1.0f, 0.0f, 0.0f);
+	 glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
 
- //    glVertex2f( 0.0f, 0.0f); 
- //    glVertex2f( 0.0f, 2.0f); 
- //    glVertex2f( 2.0f, 0.0f); 
- //    glVertex2f(2.0f,2.0f);
- //    glVertex2f(5.0f,0.0f);
- //    glVertex2f(5.0f,2.0f);
+	 glEnable( GL_TEXTURE_2D );
+	glEnable( GL_LIGHTING );
+	glBindTexture( GL_TEXTURE_2D, texture_id );
+	glTranslatef(-0.85f, -0.75f, 0.0f);
+	glScalef(0.1f, 0.1f, 0.1);
+	glRotatef(50.0f, 50.0f, 0.0f, 0.0f);
+	/*if (render_object == 0) // render the quad
+	{
+	 glBegin(GL_QUAD_STRIP);
+	 glColor3f(1.0f, 0.0f, 0.0f);
+		
+     glVertex2f( 0.0f, 0.0f); 
+     glVertex2f( 0.0f, 2.0f); 
+     glVertex2f( 2.0f, 0.0f); 
+     glVertex2f(2.0f,2.0f);
+     glVertex2f(5.0f,0.0f);
+     glVertex2f(5.0f,2.0f);
+	 glEnd();  // End of drawing color-
+	}*/
+	if (render_object == 0) // render the quad
+	{
+		glBegin( GL_QUADS );
+			glTexCoord2d(0.0,0.0); 
+			glVertex2d(-0.5,-0.5);
 
+			glTexCoord2d(1.0,0.0); 
+			glVertex2d(0.5,-0.5);
 
-	// glEnd();  // End of drawing color-
+			glTexCoord2d(1.0,1.0); 
+			glVertex2d(0.5,0.5);
 
+			glTexCoord2d(0.0,1.0); 
+			glVertex2d(-0.5,0.5);
+		glEnd();
+	}
+	else // render the teapot
+	{
+		glutSolidTeapot(0.5f);	
+	}
 
+	glFlush();
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
-//_________________________________________________________MAIN
-
 
 //_________________________________________________________MOUSE
 void mouse_click(int button, int state, int x, int y)
@@ -941,9 +993,7 @@ void franti(int face)
 	C[face][7] = temp;
 }
 
-
-
-
+//_________________________________________________________MAIN
 int main(int argc, char** argv)
 {
 	int i, j;
@@ -966,6 +1016,40 @@ int main(int argc, char** argv)
 
 	glEnable(GL_DEPTH_TEST);
 
+	img = 	SOIL_load_image
+			(
+				"random-button-hi.png",
+				&img_width,
+				&img_height,
+				&img_channels,
+				SOIL_LOAD_AUTO
+			);
+
+	// prints out image information
+	if (img)
+	{
+		std::clog << " SOIL texture loading: success!\n";
+		std::clog << "  Image width...... : " << img_width << "\n";
+		std::clog << "  Image height..... : " << img_height << "\n";
+		std::clog << "  Image channels... : " << img_channels << "\n";		
+	}
+	else	
+	{
+		std::cerr << "SOIL loading error: " << SOIL_last_result() << "\n";
+	}
+
+	// generates a texture id
+	glGenTextures( 1, &texture_id );
+
+	// binds the newly generated texture
+	glBindTexture( GL_TEXTURE_2D, texture_id );
+
+	// loads image's byte array into a texture
+	//glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
 
 	glutDisplayFunc(draw);
 
