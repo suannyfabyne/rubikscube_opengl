@@ -2,6 +2,28 @@
 #include <GL/glut.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include<SOIL.h>
+
+/*
+
+
+GLuint texture_id;
+
+
+GLfloat tex_ss = 1.0f;
+GLfloat tex_st = 1.0f;
+
+GLuint tex_wrap_s_mode = 0; // repeat
+GLuint tex_wrap_t_mode = 0; // repeat
+
+GLuint tex_mag_mode = 0; // nearest
+GLuint tex_min_mode = 0; // nearest
+
+
+GLuint render_object = 0;
+
+*/
+
 
 
 GLfloat angle, fAspect;
@@ -41,6 +63,30 @@ void motion(int, int);
 int mpx, mpy, mpz;
 
 int diry, layy, dirx, layx, dirz, layz;
+GLuint texture[1];  
+
+int LoadGLTextures()                                    // Load Bitmaps And Convert To Textures
+{
+    /* load an image file directly as a new OpenGL texture */
+    texture[0] = SOIL_load_OGL_texture
+        (
+        "ufpb.png",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+ 
+    if(texture[0] == 0)
+        return false;
+ 
+ 
+    // Typical Texture Generation Using Data From The Bitmap
+    glBindTexture(GL_TEXTURE_2D, texture[0]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+ 
+    return true;                                        // Return Success
+}
 
 
 void Inicializa (void)
@@ -743,6 +789,20 @@ void draw()
 
 int main(int argc, char** argv)
 {
+
+	if (!LoadGLTextures())                          // Jump To Texture Loading Routine ( NEW )     
+	{ 
+        return false;                           // If Texture Didn't Load Return FALSE ( NEW )     
+	}       
+	glEnable(GL_TEXTURE_2D);                        // Enable Texture Mapping ( NEW )     
+	glShadeModel(GL_SMOOTH);                        // Enable Smooth Shading     
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);                   // Black Background     
+	glClearDepth(1.0f);                         // Dept
+	glEnable(GL_DEPTH_TEST);                        // Enables Depth Testing     
+	glDepthFunc(GL_LEQUAL);                         // The Type Of Depth Testing To Do     
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);          // Really Nice Perspective Calculations
+
+
 	int i, j;
 
 	for (i = 0; i < 6; i++)
@@ -783,6 +843,8 @@ int main(int argc, char** argv)
 	glutSpecialFunc(specialKeys);
 	glutReshapeFunc(ChangeSize);
 	Inicializa();
+	
+	
 
 	glutMainLoop();
 	return 0;
