@@ -34,16 +34,15 @@ void mouse_click(int, int, int, int);
 void mouse_move(int, int);
 
 int mpx, mpy, mpz;
-
 int diry, layy, dirx, layx, dirz, layz;
 
 
-void Inicializa (void)
+void Ilumin (void)
 { 
 	GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0}; 
 	GLfloat luzDifusa[4]={0.7,0.7,0.7,1.0};	   // "cor" 
-	GLfloat luzEspecular[4]={1.0, 1.0, 1.0, 1.0};// "brilho" 
-	GLfloat posicaoLuz[4]={0.0, 0.0, 0.0, 1.0};
+	GLfloat luzEspecular[4]={0.4, 0.4, 0.4, 1.0};// "brilho" 
+	GLfloat posicaoLuz[4]={0.5, 0.5, 0.0, 1.0};
 
 	// Capacidade de brilho do material
 	GLfloat especularidade[4]={1.0,1.0,1.0,1.0}; 
@@ -85,20 +84,6 @@ void ChangeSize(int w, int h)
 {
 	glViewport(0, 0, w, h);
 }
-/*
-static void resize(int width, int height)
-{
-	const float ar = (float) width / (float) height;
-
-	glViewport(0, 0, width, height);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glFrustum(-ar, ar, -1.0, 1.0, 2.0, 100.0);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity() ;
-}
-*/
 
 void scramble(int x)
 {
@@ -137,50 +122,7 @@ void renderBitmapString(float x, float y, void *font, const char *string) {
 		glutBitmapCharacter(font, *c);
 	}
 }
-//__________________________________________________KEY___
-/*
-void keyb(unsigned char key, int x, int y)
-{
-	pressed = 1;
-	if (yes&&pause != 1)
-	{
 
-
-		switch (key)
-		{
-		case 'q':xfinal(1); yes = 0; break;
-		case 'w':xfinal(2); yes = 0; break;
-		case 'e':xfinal(3); yes = 0; break;
-		case 'r':xfinal(7); yes = 0; break;
-		case 't':xfinal(8); yes = 0; break;
-		case 'y':xfinal(9); yes = 0; break;
-		case 'a':yfinal(1); yes = 0; break;
-		case 's':yfinal(2); yes = 0; break;
-		case 'd':yfinal(3); yes = 0; break;
-		case 'f':yfinal(7); yes = 0; break;
-		case 'g':yfinal(8); yes = 0; break;
-		case 'h':yfinal(9); yes = 0; break;
-		case 'z':zfinal(1); yes = 0; break;
-		case 'x':zfinal(2); yes = 0; break;
-		case 'c':zfinal(3); yes = 0; break;
-		case 'v':zfinal(7); yes = 0; break;
-		case 'b':zfinal(8); yes = 0; break;
-		case 'n':zfinal(9); yes = 0; break;
-
-		case 'o':xfinal(9); yes = 0; break;
-		case 'l':xfinal(3); yes = 0; break;
-		case 'k':yfinal(7); yes = 0; break;
-		case ';':yfinal(1); yes = 0; break;
-		case 'i':zfinal(7); yes = 0; break;
-		case 'p':zfinal(1); yes = 0; break;
-		case 'u':xfinal(7); yes = 0; break;
-		case 'j':xfinal(1); yes = 0; break;
-
-		default:break;
-		}
-	}
-}
-*/
 void specialKeys(int key, int x, int y)
 {
 	if (yes)
@@ -501,8 +443,7 @@ void draw()
 	rubic(siz, x);
 	glColor3f(0, 0, 0);
 	//
-	renderBitmapString(-1.1, -0.9, GLUT_BITMAP_HELVETICA_18, "RESETAR");
-	renderBitmapString(-1.1, -1.01, GLUT_BITMAP_HELVETICA_18, "ALEATORIO");
+
 /*
 	if (pause == 1)
 		renderBitmapString(-0.15, 0.9, GLUT_BITMAP_TIMES_ROMAN_24, "JOGAR");*/
@@ -545,82 +486,17 @@ void draw()
 
 	}
 
-	// ***************BOTOES LADO ESQUERDO
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(-0.55f, -0.03f, 0.0f);
-	glScalef(-0.1f, 0.1f, 0.1f);
-	glRotatef(45.0f, 1.0f, 0.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
 
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(-0.55f, 0.18f, 0.0f);
-	glScalef(-0.1f, 0.1f, 0.1f);
-	glRotatef(45.0f, 1.0f, 0.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
-
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(-0.55f, -0.24f, 0.0f);
-	glScalef(-0.1f, 0.1f, 0.1f);
-	glRotatef(45.0f, 1.0f, 0.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
-
-  // ***************BOTOES LADO DIREITO
-
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(0.55f, -0.14f, 0.0f);
-	glScalef(0.1f, 0.1f, 0.1f);
-	glRotatef(45.0f, 1.0f, 0.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
-
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(0.55f, 0.06f, 0.0f);
-	glScalef(0.1f, 0.1f, 0.1f);
-	glRotatef(45.0f, 1.0f, 0.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
-
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(0.55f, 0.25f, 0.0f);
-	glScalef(0.1f, 0.1f, 0.1f);
-	glRotatef(45.0f, 1.0f, 0.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
+	renderBitmapString(-1.1, -0.9, GLUT_BITMAP_HELVETICA_18, "RESETAR");
+	renderBitmapString(-1.1, -1.01, GLUT_BITMAP_HELVETICA_18, "ALEATORIO");
 
 	// ******** BOTOES DE CONTROLE DE ROTA�AO
 	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
 	glTranslatef(0.0f, -0.90f, 0.0f);
-	glScalef(0.083f, -0.080f, 0.083f);
+	glScalef(-0.083f, -0.080f, 0.083f);
 	glRotatef(135.0f, 0.0f, 1.0f, 0.0f);
 	glBegin(GL_POLYGON);
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor3f(1.0f, 1.0f, 1.0f);
 	glVertex3f(1.0f, 0.0f, 0.0f);
 	glVertex3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(0.0f, 0.0f, 1.0f);
@@ -628,10 +504,10 @@ void draw()
 
 	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
 	glTranslatef(0.0f, -0.76f, 0.0f);
-	glScalef(0.083f, 0.080f, 0.083f);
+	glScalef(-0.083f, 0.080f, 0.083f);
 	glRotatef(135.0f, 0.0f, 1.0f, 0.0f);
 	glBegin(GL_POLYGON);
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor3f(1.0f, 1.0f, 1.0f);
 	glVertex3f(1.0f, 0.0f, 0.0f);
 	glVertex3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(0.0f, 0.0f, 1.0f);
@@ -639,13 +515,13 @@ void draw()
 
 	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
 	glTranslatef(0.090f, -0.83f, 0.0f);
-	glScalef(0.083f, -0.080f, 0.083f);
+	glScalef(0.083f, 0.080f, 0.083f);
 	glRotatef(50.0f, 50.0f, 0.0f, 0.0f);
 	glBegin(GL_POLYGON);
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex3f(0.0f, 0.0f, 1.0f);
 	glVertex3f(1.0f, 0.0f, 0.0f);
 	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
 	glEnd();  // End of drawing color-
 
 	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
@@ -653,134 +529,36 @@ void draw()
 	glScalef(-0.083f, 0.080f, 0.083f);
 	glRotatef(50.0f, 50.0f, 0.0f, 0.0f);
 	glBegin(GL_POLYGON);
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor3f(1.0f, 1.0f, 1.0f);
 	glVertex3f(1.0f, 0.0f, 0.0f);
 	glVertex3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(0.0f, 0.0f, 1.0f);
 	glEnd();  // End of drawing color-
 
-  // *************** DE CIMA/ESQUERDO
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(-0.5f, 0.35f, 0.0f);
-	glScalef(0.08f, 0.08f, 0.08f);
-	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-	glRotatef(-3.0f, 0.0f, 1.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(1.4f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
 
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(-0.25f, 0.5f, 0.05f);
-	glScalef(0.08f, 0.08f, 0.08f);
-	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-	glRotatef(-3.0f, 0.0f, 1.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(1.4f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
+	// // RETANGULOS
+	// glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
+	// glTranslatef(-0.85f, -0.75f, 0.0f);
+	// glScalef(0.1f, 0.1f, 0.1);
+	// glRotatef(50.0f, 50.0f, 0.0f, 0.0f);
+	// glBegin(GL_QUAD_STRIP);
+	// glColor3f(1.0f, 0.0f, 0.0f);
 
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(-0.38f, 0.42f, 0.05f);
-	glScalef(0.08f, 0.08f, 0.08f);
-	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-	glRotatef(-3.0f, 0.0f, 1.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(1.4f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
+ //    glVertex2f( 0.0f, 0.0f); 
+ //    glVertex2f( 0.0f, 2.0f); 
+ //    glVertex2f( 2.0f, 0.0f); 
+ //    glVertex2f(2.0f,2.0f);
+ //    glVertex2f(5.0f,0.0f);
+ //    glVertex2f(5.0f,2.0f);
 
-	  // *************** DE CIMA/DIREITO
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(0.12f, 0.31f, 0.05f);
-	glScalef(0.05f, 0.05f, 0.05f);
-	glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
-	glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(0.8f, 2.8f, 0.0f);
-	glVertex3f(3.0f, 3.5f, 0.0f);
-	glVertex3f(3.3f, 2.0f, 0.0f);
-	glEnd();  // End of drawing color-
-	
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(0.28f, 0.25f, 0.05f);
-	glScalef(0.05f, 0.05f, 0.05f);
-	glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
-	glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(0.8f, 2.8f, 0.0f);
-	glVertex3f(3.0f, 3.5f, 0.0f);
-	glVertex3f(3.3f, 2.0f, 0.0f);
-	glEnd();  // End of drawing color-
 
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(-0.05f, 0.36f, 0.05f);
-	glScalef(0.05f, 0.05f, 0.05f);
-	glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
-	glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(0.4f, 0.3f, 0.6f);
-	glVertex3f(0.8f, 2.8f, 0.0f);
-	glVertex3f(3.0f, 3.5f, 0.0f);
-	glVertex3f(3.3f, 2.0f, 0.0f);
-	glEnd();  // End of drawing color-
+	// glEnd();  // End of drawing color-
+
+
 	glutSwapBuffers();
 }
 //_________________________________________________________MAIN
 
-int main(int argc, char** argv)
-{
-	int i, j;
-
-	for (i = 0; i < 6; i++)
-		for (j = 0; j < 10; j++)
-			C[i][j] = i;
-	for (i = 0; i < 28; i++)
-	{
-		xro[i] = 0;
-		yro[i] = 0;
-		zro[i] = 0;
-	}
-	//printf("MOVES: \n 1. For rotating the whole cube use special keys \n 2. layer Moves :\n\tX axis rotation : keys Q,W,E,R,T,Y\n\tY axis rotation : keys A,S,D,F,G,H\n\tZ axis rotation : keys Z,X,C,V,B,N\n\t\n\nFrequently used Rotations:\n\tR  : o\n\tR' : l\n\tU  : ;\n\tU' : j\n\tL  : j\n\tL' : u\n\tF  : p\n\tF' : i");
-
-	//---------------------------GLUT
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(700, 700);
-	glutInitWindowPosition(660, 0);
-	glutCreateWindow("CUBO MAGICO - TRABALHO CG");
-
-
-	glClearColor(0.8, 0.8, 0.8, 1.0);
-
-	/*   glClearColor(0.0,0.0,0.0,0.0);
-	   glMatrixMode(GL_PROJECTION);
-	   glLoadIdentity();
-	   glOrtho(-1.0,1.0,-1.0,1.0,1.0,-1.0);
-   */
-	glEnable(GL_DEPTH_TEST);
-
-
-	glutDisplayFunc(draw);
-	//glutKeyboardFunc(keyb);
-	//glutMotionFunc(mouse_move);
-	glutMouseFunc(mouse_click);
-	glutTimerFunc(100, anim, 1);
-	glutSpecialFunc(specialKeys);
-	glutReshapeFunc(ChangeSize);
-	Inicializa();
-
-	glutMainLoop();
-	return 0;
-}
 
 //_________________________________________________________MOUSE
 void mouse_click(int button, int state, int x, int y)
@@ -825,71 +603,101 @@ void mouse_click(int button, int state, int x, int y)
 				tmi = 0; tm = 0; tse = 0;
 			}
 			//******* botoes esquerdo
-			if (x > 125 && x < 160 && y>250 && y < 315) { //triangulos da esquerda 
+			if (x > 125 && x < 200 && y>250 && y < 315) { //triangulos da esquerda 
 				yfinal(7); yes = 0;
 				click = 1;
 			}
-			if (x > 125 && x < 160 && y>340 && y < 385) { //triangulos da esquerda 
+			else if (x > 125 && x < 200 && y>340 && y < 385) { //triangulos da esquerda 
 				yfinal(8); yes = 0;
 				click = 1;
 			}
-			if (x > 125 && x < 160 && y>410 && y < 470) { //triangulos da esquerda 
+			else if (x > 125 && x < 200 && y>410 && y < 470) { //triangulos da esquerda 
 				yfinal(9); yes = 0;
 				click = 1;
 			}
 			//******* botoes direito 
-			if (x > 540 && x < 575 && y>240 && y < 290) { //triangulos da direita
+			else if (x > 500 && x < 575 && y>240 && y < 290) { //triangulos da direita
 				yfinal(1); yes = 0;
 				click = 1;
 			}
-			if (x > 540 && x < 575 && y>300 && y < 350) { //triangulos da direita
+			else if (x > 500 && x < 575 && y>300 && y < 350) { //triangulos da direita
 				yfinal(2); yes = 0;
 				click = 1;
 			}
-			if (x > 540 && x < 575 && y>370 && y < 410) { //triangulos da direita
+			else if (x > 500 && x < 575 && y>370 && y < 410) { //triangulos da direita
 				yfinal(3); yes = 0;
 				click = 1;
 			}
-			if (x > 330 && x < 360 && y>660 && y < 690) { //CONTROL DOWN
+			else if (x > 330 && x < 360 && y>660 && y < 690) { //CONTROL DOWN
 				wholr(1, -1);
 				click = 1;
 			}
-			if (x > 330 && x < 360 && y>580 && y < 620) { //CONTROL UP
+			else if (x > 330 && x < 360 && y>580 && y < 620) { //CONTROL UP
 				wholr(1, 1);
 				click = 1;
 			}
-			if (x > 290 && x < 320 && y>630 & y < 660) { //CONTROL LEFT
+			else if (x > 290 && x < 320 && y>630 & y < 660) { //CONTROL LEFT
 				wholr(0, 1);
 				click = 1;
 			}
-			if (x > 380 && x < 410 && y>630 & y < 660) { //CONTROL RIGHT
+			else if (x > 380 && x < 410 && y>630 & y < 660) { //CONTROL RIGHT
 				wholr(0, -1);
 				click = 1;
 			}
 			//******* botoes norte direita
-			if (x > 462 && x < 505 && y>200 && y < 226) { //triangulos da direita
+			else if (x > 460 && x < 510 && y>200 && y < 240) { //triangulos da direita
 				xfinal(9); yes = 0;
 				click = 1;
 			}
-			if (x > 406 && x < 450 && y>180 && y < 200) { //triangulos da direita
+			else if (x > 390 && x < 450 && y>180 && y < 220) { //triangulos da direita
 				xfinal(8); yes = 0;
 				click = 1;
 			}
-			if (x > 348 && x < 390 && y>163 && y < 183) { //triangulos da direita
+			else if (x > 300 && x < 390 && y>155 && y < 195) { //triangulos da direita
 				xfinal(7); yes = 0;
 				click = 1;
 			}
 			//******* botoes norte esquerda
-			if (x > 173 && x < 211 && y>226 && y < 252) { //triangulos da direita
+			else if (x > 173 && x < 233 && y>226 && y < 272) { //triangulos da direita
 				zfinal(7); yes = 0;
 				click = 1;
 			}
-			if (x > 216 && x < 252 && y>202 && y < 225) { //triangulos da direita
+			else if (x > 216 && x < 272 && y>202 && y < 245) { //triangulos da direita
 				zfinal(8); yes = 0;
 				click = 1;
 			}
-			if (x > 261 && x < 296 && y>174 && y < 199) { //triangulos da direita
+			else if (x > 261 && x < 316 && y>174 && y < 220) { //triangulos da direita
 				zfinal(9); yes = 0;
+				click = 1;
+			}
+			//******* botoes baixo
+			else if (x > 190 && x < 250 && y>470 && y < 520) { //triangulos da direita
+				xfinal(1); yes = 0;
+				click = 1;
+			}
+
+			else if (x > 155 && x < 310 && y>490 && y < 530) { //triangulos da direita
+				xfinal(2); yes = 0;
+				click = 1;
+			}
+
+			else if (x > 320 && x < 375 && y>500 && y < 550) { //triangulos da direita
+				xfinal(3); yes = 0;
+				click = 1;
+			}
+
+			//******* botoes baixo direita
+
+			else if (x > 380 && x < 430 && y>494 && y < 550) { //triangulos da direita
+				zfinal(1); yes = 0;
+				click = 1;
+			}
+			else if (x > 425 && x < 470 && y>470 && y < 520) { //triangulos da direita
+				zfinal(2); yes = 0;
+				click = 1;
+			}
+			else if (x > 479 && x < 510 && y>440 && y < 490) { //triangulos da direita
+				zfinal(3); yes = 0;
 				click = 1;
 			}
 		}
@@ -1131,4 +939,42 @@ void franti(int face)
 	C[face][3] = C[face][9];
 	C[face][9] = C[face][7];
 	C[face][7] = temp;
+}
+
+
+
+
+int main(int argc, char** argv)
+{
+	int i, j;
+	for (i = 0; i < 6; i++)
+		for (j = 0; j < 10; j++)
+			C[i][j] = i;
+	for (i = 0; i < 28; i++)
+	{
+		xro[i] = 0;
+		yro[i] = 0;
+		zro[i] = 0;
+	}
+
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(700, 700);
+	glutInitWindowPosition(660, 0);
+	glutCreateWindow("CUBO MAGICO - TRABALHO CG");
+
+
+	glEnable(GL_DEPTH_TEST);
+
+
+	glutDisplayFunc(draw);
+
+	glutMouseFunc(mouse_click);
+	glutTimerFunc(100, anim, 1);
+	glutSpecialFunc(specialKeys);
+	glutReshapeFunc(ChangeSize);
+	Ilumin();
+
+	glutMainLoop();
+	return 0;
 }
