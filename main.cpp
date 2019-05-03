@@ -565,14 +565,14 @@ void draw()
 
 
 	// // RETANGULOS
-	 glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
+	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
 
-	 glEnable( GL_TEXTURE_2D );
+	glEnable( GL_TEXTURE_2D );
 	glEnable( GL_LIGHTING );
 	glBindTexture( GL_TEXTURE_2D, texture_id );
-	glTranslatef(-0.85f, -0.75f, 0.0f);
-	glScalef(0.1f, 0.1f, 0.1);
-	glRotatef(50.0f, 50.0f, 0.0f, 0.0f);
+	glTranslatef(-0.70f, -0.65f, 0.0f);
+	glScalef(0.4f, 0.1f, 0.1);
+	glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
 	/*if (render_object == 0) // render the quad
 	{
 	 glBegin(GL_QUAD_STRIP);
