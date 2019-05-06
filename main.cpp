@@ -456,99 +456,51 @@ void draw()
 		}
 	}
 	rubic(siz, x);
-	glColor3f(0, 0, 0);
-	//
+	glColor3f(0.0, 0.0, 0.0);
 
-/*
-	if (pause == 1)
-		renderBitmapString(-0.15, 0.9, GLUT_BITMAP_TIMES_ROMAN_24, "JOGAR");*/
-		if (click) {
-			tmi += 2;
-			tse += tmi / 100;
-			tm += tse / 60;
-			tmi %= 100;
-			tse %= 60;
-			st[0] = 48 + tm;
-			st[2] = 48 + tse / 10;
-			st[3] = 48 + tse % 10;
-			st[5] = 48 + tmi / 10;
-			st[6] = 48 + tmi % 10;
-		} else{
-			st[0] = 48 + tm;
-			st[2] = 48 + tse / 10;
-			st[3] = 48 + tse % 10;
-			st[5] = 48 + tmi / 10;
-			st[6] = 48 + tmi % 10;
-		}
-		//renderBitmapString(-0.15, 0.9, GLUT_BITMAP_TIMES_ROMAN_24, "PAUSAR");
+	if (click) {
+		tmi += 2;
+		tse += tmi / 100;
+		tm += tse / 60;
+		tmi %= 100;
+		tse %= 60;
+		st[0] = 48 + tm;
+		st[2] = 48 + tse / 10;
+		st[3] = 48 + tse % 10;
+		st[5] = 48 + tmi / 10;
+		st[6] = 48 + tmi % 10;
+		renderBitmapString(0.8, -0.8, GLUT_BITMAP_TIMES_ROMAN_24, st);
+	}else if(pause == 0) {
+		renderBitmapString(0.8, -0.8, GLUT_BITMAP_TIMES_ROMAN_24, st);
+	}else{
+		st[0] = 48 + tm;
+		st[2] = 48 + tse / 10;
+		st[3] = 48 + tse % 10;
+		st[5] = 48 + tmi / 10;
+		st[6] = 48 + tmi % 10;
+		renderBitmapString(0.8, -0.8, GLUT_BITMAP_TIMES_ROMAN_24, st);
+	}
 	
-	renderBitmapString(0.8, -0.8, GLUT_BITMAP_TIMES_ROMAN_24, st);
+	
 	for (i = 0; i < 6; i++)
 		for (j = 1; j < 10; j++)
 		{
 			if (C[i][5] != C[i][j])
 			{
 				flag = 1;
-
 			}
 		}
 	if (!flag) {
 		pressed = 0;
 		solving = 0;
-		pause = -1;
-		glColor3f(0, 0.8, 0); // COR DA FRASE "RESOLVIDO!"
+		pause = 0;
+		click = 0;
 		renderBitmapString(-0.25, 0.7, GLUT_BITMAP_TIMES_ROMAN_24, "RESOLVIDO!");
 
 	}
 
-	/*// ******** BOTOES DE CONTROLE DE ROTA�AO
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(0.0f, -0.90f, 0.0f);
-	glScalef(-0.083f, -0.080f, 0.083f);
-	glRotatef(135.0f, 0.0f, 1.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
-
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(0.0f, -0.76f, 0.0f);
-	glScalef(-0.083f, 0.080f, 0.083f);
-	glRotatef(135.0f, 0.0f, 1.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
-
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(0.090f, -0.83f, 0.0f);
-	glScalef(0.083f, 0.080f, 0.083f);
-	glRotatef(50.0f, 50.0f, 0.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glEnd();  // End of drawing color-
-
-	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
-	glTranslatef(-0.088f, -0.83f, 0.0f);
-	glScalef(-0.083f, 0.080f, 0.083f);
-	glRotatef(50.0f, 50.0f, 0.0f, 0.0f);
-	glBegin(GL_POLYGON);
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-*/
-
-
-	glColor3f(1.0, 1.0, 1.0); // Green (text color)
-
+	glColor3f(1.0, 1.0, 1.0); 
+	
 	//glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(90.0f, aspect, 0.01f, 10.0f);
@@ -670,6 +622,7 @@ void mouse_click(int button, int state, int x, int y)
 		if (state == GLUT_UP) {
 			if (x > 33 && x < 139 && y>561 && y < 579) {
 				scramble(x);
+				click = 0;
 				pause = -1;
 				solving = 1;
 				pressed = 0;
@@ -1094,8 +1047,6 @@ int main(int argc, char** argv)
 	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
 	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
-
 
 	img = 	SOIL_load_image
 			(
@@ -1126,7 +1077,6 @@ int main(int argc, char** argv)
 	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
 	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
 
 	img = 	SOIL_load_image
 			(
@@ -1157,7 +1107,6 @@ int main(int argc, char** argv)
 	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
 	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
 	std::clog << "  CARREGADO TODOS OS MODELOS"  << "\n";	
 
 	glutDisplayFunc(draw);
