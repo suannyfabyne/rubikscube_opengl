@@ -1,4 +1,4 @@
-// #include<windows.h>
+﻿// #include<windows.h>
 #include <GL/glut.h>
 #include <iostream>
 #include<stdlib.h>
@@ -8,7 +8,7 @@ GLfloat angle, fAspect;
 
 
 unsigned char* img;
-int img_width; 
+int img_width;
 int img_height;
 int img_channels;
 
@@ -50,46 +50,46 @@ int mpx, mpy, mpz;
 int diry, layy, dirx, layx, dirz, layz;
 
 
-void Ilumin (void)
-{ 
-	GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0}; 
-	GLfloat luzDifusa[4]={0.7,0.7,0.7,1.0};	   // "cor" 
-	GLfloat luzEspecular[4]={0.4, 0.4, 0.4, 1.0};// "brilho" 
-	GLfloat posicaoLuz[4]={0.5, 0.5, 0.0, 1.0};
+void Ilumin(void)
+{
+	GLfloat luzAmbiente[4] = { 0.2,0.2,0.2,1.0 };
+	GLfloat luzDifusa[4] = { 0.7,0.7,0.7,1.0 };	   // "cor" 
+	GLfloat luzEspecular[4] = { 0.4, 0.4, 0.4, 1.0 };// "brilho" 
+	GLfloat posicaoLuz[4] = { 0.5, 0.5, 0.0, 1.0 };
 	// Capacidade de brilho do material
-	GLfloat especularidade[4]={1.0,1.0,1.0,1.0}; 
+	GLfloat especularidade[4] = { 1.0,1.0,1.0,1.0 };
 	GLint especMaterial = 60;
 
- 	// Especifica que a cor de fundo da janela será preta
+	// Especifica que a cor de fundo da janela será preta
 	glClearColor(0.8, 0.8, 0.8, 1.0);
-	
+
 	// Habilita o modelo de colorização de Gouraud
 	glShadeModel(GL_SMOOTH);
 
 	// Define a refletância do material 
-	glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
 	// Define a concentração do brilho
-	glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
+	glMateriali(GL_FRONT, GL_SHININESS, especMaterial);
 
 	// Ativa o uso da luz ambiente 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
 
 	// Define os parâmetros da luz de número 0
-	glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente); 
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa );
-	glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular );
-	glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz );
+	glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular);
+	glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
 
 	// Habilita a definição da cor do material a partir da cor corrente
 	glEnable(GL_COLOR_MATERIAL);
 	//Habilita o uso de iluminação
-	glEnable(GL_LIGHTING);  
+	glEnable(GL_LIGHTING);
 	// Habilita a luz de número 0
 	glEnable(GL_LIGHT0);
 	// Habilita o depth-buffering
 	glEnable(GL_DEPTH_TEST);
 
-	angle=45;
+	angle = 45;
 }
 
 void ChangeSize(int w, int h)
@@ -470,9 +470,11 @@ void draw()
 		st[5] = 48 + tmi / 10;
 		st[6] = 48 + tmi % 10;
 		renderBitmapString(0.8, -0.8, GLUT_BITMAP_TIMES_ROMAN_24, st);
-	}else if(pause == 0) {
+	}
+	else if (pause == 0) {
 		renderBitmapString(0.8, -0.8, GLUT_BITMAP_TIMES_ROMAN_24, st);
-	}else{
+	}
+	else {
 		st[0] = 48 + tm;
 		st[2] = 48 + tse / 10;
 		st[3] = 48 + tse % 10;
@@ -480,8 +482,8 @@ void draw()
 		st[6] = 48 + tmi % 10;
 		renderBitmapString(0.8, -0.8, GLUT_BITMAP_TIMES_ROMAN_24, st);
 	}
-	
-	
+
+
 	for (i = 0; i < 6; i++)
 		for (j = 1; j < 10; j++)
 		{
@@ -499,13 +501,13 @@ void draw()
 
 	}
 
-	glColor3f(1.0, 1.0, 1.0); 
-	
+	glColor3f(1.0, 1.0, 1.0);
+
 	//glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(90.0f, aspect, 0.01f, 10.0f);
 	glMatrixMode(GL_TEXTURE);
-	glLoadIdentity();	
+	glLoadIdentity();
 	glScalef(tex_ss, tex_st, 1);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -514,94 +516,94 @@ void draw()
 	// // RETANGULOS
 	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
 
-	glEnable( GL_TEXTURE_2D );
-	glEnable( GL_LIGHTING );
-	glBindTexture( GL_TEXTURE_2D, textures[0] );
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_LIGHTING);
+	glBindTexture(GL_TEXTURE_2D, textures[0]);
 	glTranslatef(-0.705f, -0.65f, 0.5f);
 	glScalef(0.4f, 0.1f, 0.1);
 	glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
-	
+
 	if (render_object == 0) // render the quad
 	{
-		glBegin( GL_QUADS );
-			glTexCoord2d(0.0,0.0); 
-			glVertex2d(-0.5,-0.5);
+		glBegin(GL_QUADS);
+		glTexCoord2d(0.0, 0.0);
+		glVertex2d(-0.5, -0.5);
 
-			glTexCoord2d(1.0,0.0); 
-			glVertex2d(0.5,-0.5);
+		glTexCoord2d(1.0, 0.0);
+		glVertex2d(0.5, -0.5);
 
-			glTexCoord2d(1.0,1.0); 
-			glVertex2d(0.5,0.5);
+		glTexCoord2d(1.0, 1.0);
+		glVertex2d(0.5, 0.5);
 
-			glTexCoord2d(0.0,1.0); 
-			glVertex2d(-0.5,0.5);
+		glTexCoord2d(0.0, 1.0);
+		glVertex2d(-0.5, 0.5);
 		glEnd();
 	}
 	else // render the teapot
 	{
-		glutSolidTeapot(0.5f);	
+		glutSolidTeapot(0.5f);
 	}
 
 	// // RETANGULOS
 	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
 
-	glEnable( GL_TEXTURE_2D );
-	glEnable( GL_LIGHTING );
-	glBindTexture( GL_TEXTURE_2D, textures[1] );
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_LIGHTING);
+	glBindTexture(GL_TEXTURE_2D, textures[1]);
 	glTranslatef(-0.705f, -0.53f, 0.5f);
 	glScalef(0.4f, 0.1f, 0.1);
 	glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
-	
+
 	if (render_object == 0) // render the quad
 	{
-		glBegin( GL_QUADS );
-			glTexCoord2d(0.0,0.0); 
-			glVertex2d(-0.5,-0.5);
+		glBegin(GL_QUADS);
+		glTexCoord2d(0.0, 0.0);
+		glVertex2d(-0.5, -0.5);
 
-			glTexCoord2d(1.0,0.0); 
-			glVertex2d(0.5,-0.5);
+		glTexCoord2d(1.0, 0.0);
+		glVertex2d(0.5, -0.5);
 
-			glTexCoord2d(1.0,1.0); 
-			glVertex2d(0.5,0.5);
+		glTexCoord2d(1.0, 1.0);
+		glVertex2d(0.5, 0.5);
 
-			glTexCoord2d(0.0,1.0); 
-			glVertex2d(-0.5,0.5);
+		glTexCoord2d(0.0, 1.0);
+		glVertex2d(-0.5, 0.5);
 		glEnd();
 	}
 	else // render the teapot
 	{
-		glutSolidTeapot(0.5f);	
+		glutSolidTeapot(0.5f);
 	}
 
 	// // RETANGULOS
 	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
 
-	glEnable( GL_TEXTURE_2D );
-	glEnable( GL_LIGHTING );
-	glBindTexture( GL_TEXTURE_2D, textures[2] );
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_LIGHTING);
+	glBindTexture(GL_TEXTURE_2D, textures[2]);
 	glTranslatef(-0.0f, -0.83f, 0.5f);
 	glScalef(0.3f, 0.3f, 0.1);
 	glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
-	
+
 	if (render_object == 0) // render the quad
 	{
-		glBegin( GL_QUADS );
-			glTexCoord2d(0.0,0.0); 
-			glVertex2d(-0.5,-0.5);
+		glBegin(GL_QUADS);
+		glTexCoord2d(0.0, 0.0);
+		glVertex2d(-0.5, -0.5);
 
-			glTexCoord2d(1.0,0.0); 
-			glVertex2d(0.5,-0.5);
+		glTexCoord2d(1.0, 0.0);
+		glVertex2d(0.5, -0.5);
 
-			glTexCoord2d(1.0,1.0); 
-			glVertex2d(0.5,0.5);
+		glTexCoord2d(1.0, 1.0);
+		glVertex2d(0.5, 0.5);
 
-			glTexCoord2d(0.0,1.0); 
-			glVertex2d(-0.5,0.5);
+		glTexCoord2d(0.0, 1.0);
+		glVertex2d(-0.5, 0.5);
 		glEnd();
 	}
 	else // render the teapot
 	{
-		glutSolidTeapot(0.5f);	
+		glutSolidTeapot(0.5f);
 	}
 
 	glFlush();
@@ -620,7 +622,7 @@ void mouse_click(int button, int state, int x, int y)
 	if (button == GLUT_LEFT_BUTTON)
 	{
 		if (state == GLUT_UP) {
-			if (x > 33 && x < 139 && y>561 && y < 579) {
+			if (x > 33 && x < 171 && y>561 && y < 593) { // botao misturar
 				scramble(x);
 				click = 0;
 				pause = -1;
@@ -634,7 +636,7 @@ void mouse_click(int button, int state, int x, int y)
 					pause = (-1)*pause;
 				//printf("%d %d \n",x,y);
 			}*/
-			if (x > 34 && x < 117 && y>525 && y < 544)
+			if (x > 33 && x < 171 && y>519 && y < 551) // botao resetar
 			{
 				pressed = 0;
 				solving = 0;
@@ -649,7 +651,7 @@ void mouse_click(int button, int state, int x, int y)
 					yro[i] = 0;
 					zro[i] = 0;
 				}
-			
+
 				tmi = 0; tm = 0; tse = 0;
 			}
 			//******* botoes esquerdo
@@ -678,19 +680,19 @@ void mouse_click(int button, int state, int x, int y)
 				yfinal(3); yes = 0;
 				click = 1;
 			}
-			else if (x > 330 && x < 360 && y>660 && y < 690) { //CONTROL DOWN
+			else if (x > 332 && x < 368 && y>652 && y < 691) { //CONTROL DOWN
 				wholr(1, -1);
 				click = 1;
 			}
-			else if (x > 330 && x < 360 && y>580 && y < 620) { //CONTROL UP
+			else if (x > 330 && x < 367 && y>589 && y < 626) { //CONTROL UP
 				wholr(1, 1);
 				click = 1;
 			}
-			else if (x > 290 && x < 320 && y>630 & y < 660) { //CONTROL LEFT
+			else if (x > 298 && x < 336 && y>620 & y < 660) { //CONTROL LEFT
 				wholr(0, 1);
 				click = 1;
 			}
-			else if (x > 380 && x < 410 && y>630 & y < 660) { //CONTROL RIGHT
+			else if (x > 364 && x < 398 && y>621 & y < 656) { //CONTROL RIGHT
 				wholr(0, -1);
 				click = 1;
 			}
@@ -813,7 +815,7 @@ void mouse_click(int button, int state, int x, int y)
 					}
 				}
 			}
-			printf("%d %d \n",x,y); // PRINT PARA VER AS COORDENADAS NO CONSOLE DE SA�DA
+			printf("%d %d \n", x, y); // PRINT PARA VER AS COORDENADAS NO CONSOLE DE SA�DA
 		}
 		else
 			dragging = 0;
@@ -1014,14 +1016,14 @@ int main(int argc, char** argv)
 
 	glEnable(GL_DEPTH_TEST);
 
-	img = 	SOIL_load_image
-			(
-				"misturar.png",
-				&img_width,
-				&img_height,
-				&img_channels,
-				SOIL_LOAD_AUTO
-			);
+	img = SOIL_load_image
+	(
+		"misturar.png",
+		&img_width,
+		&img_height,
+		&img_channels,
+		SOIL_LOAD_AUTO
+	);
 
 	// prints out image information
 	if (img)
@@ -1029,9 +1031,9 @@ int main(int argc, char** argv)
 		std::clog << " SOIL texture loading: success!\n";
 		std::clog << "  Image width...... : " << img_width << "\n";
 		std::clog << "  Image height..... : " << img_height << "\n";
-		std::clog << "  Image channels... : " << img_channels << "\n";		
+		std::clog << "  Image channels... : " << img_channels << "\n";
 	}
-	else	
+	else
 	{
 		std::cerr << "SOIL loading error: " << SOIL_last_result() << "\n";
 	}
@@ -1040,22 +1042,22 @@ int main(int argc, char** argv)
 	glGenTextures(3, textures);
 
 	// binds the newly generated texture
-	glBindTexture( GL_TEXTURE_2D, textures[0] );
+	glBindTexture(GL_TEXTURE_2D, textures[0]);
 
 	// loads image's byte array into a texture
 	//glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
-	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
 	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-	img = 	SOIL_load_image
-			(
-				"resetar.png",
-				&img_width,
-				&img_height,
-				&img_channels,
-				SOIL_LOAD_AUTO
-			);
+	img = SOIL_load_image
+	(
+		"resetar.png",
+		&img_width,
+		&img_height,
+		&img_channels,
+		SOIL_LOAD_AUTO
+	);
 
 	// prints out image information
 	if (img)
@@ -1063,29 +1065,29 @@ int main(int argc, char** argv)
 		std::clog << " SOIL texture loading: success!\n";
 		std::clog << "  Image width...... : " << img_width << "\n";
 		std::clog << "  Image height..... : " << img_height << "\n";
-		std::clog << "  Image channels... : " << img_channels << "\n";		
+		std::clog << "  Image channels... : " << img_channels << "\n";
 	}
-	else	
+	else
 	{
 		std::cerr << "SOIL loading error: " << SOIL_last_result() << "\n";
 	}
 
 	// binds the newly generated texture
-	glBindTexture( GL_TEXTURE_2D, textures[1]);
+	glBindTexture(GL_TEXTURE_2D, textures[1]);
 	// loads image's byte array into a texture
 	//glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
-	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
 	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-	img = 	SOIL_load_image
-			(
-				"control.png",
-				&img_width,
-				&img_height,
-				&img_channels,
-				SOIL_LOAD_AUTO
-			);
+	img = SOIL_load_image
+	(
+		"control.png",
+		&img_width,
+		&img_height,
+		&img_channels,
+		SOIL_LOAD_AUTO
+	);
 
 	// prints out image information
 	if (img)
@@ -1093,21 +1095,21 @@ int main(int argc, char** argv)
 		std::clog << " SOIL texture loading: success!\n";
 		std::clog << "  Image width...... : " << img_width << "\n";
 		std::clog << "  Image height..... : " << img_height << "\n";
-		std::clog << "  Image channels... : " << img_channels << "\n";		
+		std::clog << "  Image channels... : " << img_channels << "\n";
 	}
-	else	
+	else
 	{
 		std::cerr << "SOIL loading error: " << SOIL_last_result() << "\n";
 	}
 
 	// binds the newly generated texture
-	glBindTexture( GL_TEXTURE_2D, textures[2]);
+	glBindTexture(GL_TEXTURE_2D, textures[2]);
 	// loads image's byte array into a texture
 	//glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
-	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
 	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	std::clog << "  CARREGADO TODOS OS MODELOS"  << "\n";	
+	std::clog << "  CARREGADO TODOS OS MODELOS" << "\n";
 
 	glutDisplayFunc(draw);
 
