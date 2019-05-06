@@ -12,7 +12,7 @@ int img_width;
 int img_height;
 int img_channels;
 
-GLuint texture_id;
+GLuint *textures = new GLuint[3];
 
 GLfloat aspect = 1.0f;
 GLfloat tex_ss = 1.0f;
@@ -56,7 +56,6 @@ void Ilumin (void)
 	GLfloat luzDifusa[4]={0.7,0.7,0.7,1.0};	   // "cor" 
 	GLfloat luzEspecular[4]={0.4, 0.4, 0.4, 1.0};// "brilho" 
 	GLfloat posicaoLuz[4]={0.5, 0.5, 0.0, 1.0};
-
 	// Capacidade de brilho do material
 	GLfloat especularidade[4]={1.0,1.0,1.0,1.0}; 
 	GLint especMaterial = 60;
@@ -404,7 +403,7 @@ void draw()
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glDisable(GL_LIGHTING);
+	//glDisable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
 
 	glRotatef(rotate_x, 1.0, 0.0, 0.0);
@@ -502,11 +501,7 @@ void draw()
 
 	}
 
-
-	renderBitmapString(-1.1, -0.9, GLUT_BITMAP_HELVETICA_18, "RESETAR");
-	renderBitmapString(-1.1, -1.01, GLUT_BITMAP_HELVETICA_18, "ALEATORIO");
-
-	// ******** BOTOES DE CONTROLE DE ROTA�AO
+	/*// ******** BOTOES DE CONTROLE DE ROTA�AO
 	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
 	glTranslatef(0.0f, -0.90f, 0.0f);
 	glScalef(-0.083f, -0.080f, 0.083f);
@@ -549,10 +544,10 @@ void draw()
 	glVertex3f(1.0f, 0.0f, 0.0f);
 	glVertex3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(0.0f, 0.0f, 1.0f);
-	glEnd();  // End of drawing color-
+	glEnd();  // End of drawing color-*/
 
 
-	//glColor3f(1.0, 1.0, 1.0); // Green (text color)
+	glColor3f(1.0, 1.0, 1.0); // Green (text color)
 
 	//glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -569,23 +564,73 @@ void draw()
 
 	glEnable( GL_TEXTURE_2D );
 	glEnable( GL_LIGHTING );
-	glBindTexture( GL_TEXTURE_2D, texture_id );
-	glTranslatef(-0.70f, -0.65f, 0.0f);
+	glBindTexture( GL_TEXTURE_2D, textures[0] );
+	glTranslatef(-0.705f, -0.65f, 0.5f);
 	glScalef(0.4f, 0.1f, 0.1);
 	glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
-	/*if (render_object == 0) // render the quad
+	
+	if (render_object == 0) // render the quad
 	{
-	 glBegin(GL_QUAD_STRIP);
-	 glColor3f(1.0f, 0.0f, 0.0f);
-		
-     glVertex2f( 0.0f, 0.0f); 
-     glVertex2f( 0.0f, 2.0f); 
-     glVertex2f( 2.0f, 0.0f); 
-     glVertex2f(2.0f,2.0f);
-     glVertex2f(5.0f,0.0f);
-     glVertex2f(5.0f,2.0f);
-	 glEnd();  // End of drawing color-
-	}*/
+		glBegin( GL_QUADS );
+			glTexCoord2d(0.0,0.0); 
+			glVertex2d(-0.5,-0.5);
+
+			glTexCoord2d(1.0,0.0); 
+			glVertex2d(0.5,-0.5);
+
+			glTexCoord2d(1.0,1.0); 
+			glVertex2d(0.5,0.5);
+
+			glTexCoord2d(0.0,1.0); 
+			glVertex2d(-0.5,0.5);
+		glEnd();
+	}
+	else // render the teapot
+	{
+		glutSolidTeapot(0.5f);	
+	}
+
+	// // RETANGULOS
+	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
+
+	glEnable( GL_TEXTURE_2D );
+	glEnable( GL_LIGHTING );
+	glBindTexture( GL_TEXTURE_2D, textures[1] );
+	glTranslatef(-0.705f, -0.53f, 0.5f);
+	glScalef(0.4f, 0.1f, 0.1);
+	glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
+	
+	if (render_object == 0) // render the quad
+	{
+		glBegin( GL_QUADS );
+			glTexCoord2d(0.0,0.0); 
+			glVertex2d(-0.5,-0.5);
+
+			glTexCoord2d(1.0,0.0); 
+			glVertex2d(0.5,-0.5);
+
+			glTexCoord2d(1.0,1.0); 
+			glVertex2d(0.5,0.5);
+
+			glTexCoord2d(0.0,1.0); 
+			glVertex2d(-0.5,0.5);
+		glEnd();
+	}
+	else // render the teapot
+	{
+		glutSolidTeapot(0.5f);	
+	}
+
+	// // RETANGULOS
+	glLoadIdentity(); // Reseta a matriz de transforma��o ( joga a matriz identidade )
+
+	glEnable( GL_TEXTURE_2D );
+	glEnable( GL_LIGHTING );
+	glBindTexture( GL_TEXTURE_2D, textures[2] );
+	glTranslatef(-0.0f, -0.83f, 0.5f);
+	glScalef(0.3f, 0.3f, 0.1);
+	glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
+	
 	if (render_object == 0) // render the quad
 	{
 		glBegin( GL_QUADS );
@@ -1018,7 +1063,7 @@ int main(int argc, char** argv)
 
 	img = 	SOIL_load_image
 			(
-				"random-button-hi.png",
+				"misturar.png",
 				&img_width,
 				&img_height,
 				&img_channels,
@@ -1039,10 +1084,10 @@ int main(int argc, char** argv)
 	}
 
 	// generates a texture id
-	glGenTextures( 1, &texture_id );
+	glGenTextures(3, textures);
 
 	// binds the newly generated texture
-	glBindTexture( GL_TEXTURE_2D, texture_id );
+	glBindTexture( GL_TEXTURE_2D, textures[0] );
 
 	// loads image's byte array into a texture
 	//glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
@@ -1050,6 +1095,70 @@ int main(int argc, char** argv)
 	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
+
+
+	img = 	SOIL_load_image
+			(
+				"resetar.png",
+				&img_width,
+				&img_height,
+				&img_channels,
+				SOIL_LOAD_AUTO
+			);
+
+	// prints out image information
+	if (img)
+	{
+		std::clog << " SOIL texture loading: success!\n";
+		std::clog << "  Image width...... : " << img_width << "\n";
+		std::clog << "  Image height..... : " << img_height << "\n";
+		std::clog << "  Image channels... : " << img_channels << "\n";		
+	}
+	else	
+	{
+		std::cerr << "SOIL loading error: " << SOIL_last_result() << "\n";
+	}
+
+	// binds the newly generated texture
+	glBindTexture( GL_TEXTURE_2D, textures[1]);
+	// loads image's byte array into a texture
+	//glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
+
+	img = 	SOIL_load_image
+			(
+				"control.png",
+				&img_width,
+				&img_height,
+				&img_channels,
+				SOIL_LOAD_AUTO
+			);
+
+	// prints out image information
+	if (img)
+	{
+		std::clog << " SOIL texture loading: success!\n";
+		std::clog << "  Image width...... : " << img_width << "\n";
+		std::clog << "  Image height..... : " << img_height << "\n";
+		std::clog << "  Image channels... : " << img_channels << "\n";		
+	}
+	else	
+	{
+		std::cerr << "SOIL loading error: " << SOIL_last_result() << "\n";
+	}
+
+	// binds the newly generated texture
+	glBindTexture( GL_TEXTURE_2D, textures[2]);
+	// loads image's byte array into a texture
+	//glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	gluBuild2DMipmaps( GL_TEXTURE_2D, GL_RGB, img_width, img_height, GL_RGBA, GL_UNSIGNED_BYTE, img);
+	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
+	std::clog << "  CARREGADO TODOS OS MODELOS"  << "\n";	
 
 	glutDisplayFunc(draw);
 
