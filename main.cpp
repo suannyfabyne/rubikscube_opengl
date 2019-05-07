@@ -813,7 +813,6 @@ void mouse_click(int button, int state, int x, int y)
 					}
 				}
 			}
-			printf("%d %d \n",x,y); // PRINT PARA VER AS COORDENADAS NO CONSOLE DE SA�DA
 		}
 		else
 			dragging = 0;
@@ -995,10 +994,10 @@ void franti(int face)
 int main(int argc, char** argv)
 {
 	int i, j;
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < 6; i++) 
 		for (j = 0; j < 10; j++)
-			C[i][j] = i;
-	for (i = 0; i < 28; i++)
+			C[i][j] = i; 
+	for (i = 0; i < 28; i++) 
 	{
 		xro[i] = 0;
 		yro[i] = 0;
@@ -1016,7 +1015,7 @@ int main(int argc, char** argv)
 
 	img = 	SOIL_load_image
 			(
-				"misturar.png",
+				"imgs/misturar.png",
 				&img_width,
 				&img_height,
 				&img_channels,
@@ -1050,7 +1049,7 @@ int main(int argc, char** argv)
 
 	img = 	SOIL_load_image
 			(
-				"resetar.png",
+				"imgs/resetar.png",
 				&img_width,
 				&img_height,
 				&img_channels,
@@ -1080,7 +1079,7 @@ int main(int argc, char** argv)
 
 	img = 	SOIL_load_image
 			(
-				"control.png",
+				"imgs/control.png",
 				&img_width,
 				&img_height,
 				&img_channels,
